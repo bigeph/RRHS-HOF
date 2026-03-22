@@ -44,6 +44,7 @@ export function Footer() {
               </li>
               <li>Roanoke Rapids School District</li>
               <li><Link to="/privacy" className="hover:text-primary transition-colors underline-offset-4 underline">Privacy Policy</Link></li>
+              <li><Link to="/editor" className="hover:text-primary transition-colors underline-offset-4 underline opacity-20 hover:opacity-100">Site Editor</Link></li>
             </ul>
           </div>
         </div>

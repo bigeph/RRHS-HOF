@@ -1,14 +1,27 @@
 import { Sponsors as SponsorsSection } from '@/src/components/sections/Sponsors';
-import { Editable } from '@/src/components/Editable';
+import { Editable, EditableImage } from '@/src/components/Editable';
 
 export function Sponsors() {
   return (
     <div className="bg-surface">
-      <div className="py-24 px-8 bg-on-surface border-b border-white/10">
+      <div className="relative h-[40vh] overflow-hidden">
+        <EditableImage
+          id="sponsors_hero_image"
+          src="https://picsum.photos/seed/sponsors/1920/1080"
+          alt="Sponsors Hero"
+          className="w-full h-full object-cover grayscale brightness-50"
+        />
+        <div className="absolute inset-0 flex flex-col justify-center items-center text-center p-8 bg-gradient-to-t from-surface to-transparent">
+          <span className="text-primary font-bold tracking-widest uppercase text-xs mb-4 block text-white">Community Partners</span>
+          <h1 className="text-6xl md:text-8xl font-black font-headline tracking-tighter mb-4 text-white">
+            <Editable id="sponsors_hero_title">Support the Legacy</Editable>
+          </h1>
+        </div>
+      </div>
+      
+      <div className="py-24 px-8 bg-surface-container-low">
         <div className="max-w-4xl mx-auto text-center">
-          <span className="text-primary font-bold tracking-widest uppercase text-xs mb-4 block">Community Partners</span>
-          <h1 className="text-5xl font-black font-headline tracking-tighter mb-8 text-white">Support the Legacy</h1>
-          <Editable id="sponsors_intro" as="p" className="text-xl text-white/70 leading-relaxed">
+          <Editable id="sponsors_intro" as="p" className="text-xl text-on-surface/70 leading-relaxed">
             Our Hall of Fame is made possible through the generous support of local businesses and individuals who believe in preserving the athletic heritage of Roanoke Rapids High School.
           </Editable>
         </div>

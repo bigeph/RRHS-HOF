@@ -39,14 +39,30 @@ export function Inductees() {
   };
 
   return (
-    <div className="bg-surface py-24 px-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
-          <div>
-            <span className="text-primary font-bold tracking-widest uppercase text-xs mb-4 block">The Archive</span>
-            <h1 className="text-5xl font-black font-headline tracking-tighter">Hall of Fame Inductees</h1>
-          </div>
-          <div className="flex flex-wrap gap-4">
+    <div className="bg-surface">
+      {/* Hero Section */}
+      <div className="relative h-[40vh] overflow-hidden">
+        <EditableImage
+          id="inductees_hero_image"
+          src="https://picsum.photos/seed/inductees/1920/1080"
+          alt="Inductees Hero"
+          className="w-full h-full object-cover grayscale brightness-50"
+        />
+        <div className="absolute inset-0 flex flex-col justify-center items-center text-center p-8 bg-gradient-to-t from-surface to-transparent">
+          <span className="text-primary font-bold tracking-[0.3em] uppercase text-xs mb-4 block">The Archive</span>
+          <h1 className="text-6xl md:text-8xl font-black font-headline tracking-tighter mb-4 text-white">
+            <Editable id="inductees_hero_title">Hall of Fame Inductees</Editable>
+          </h1>
+          <Editable id="inductees_hero_subtitle" as="p" className="text-lg font-bold text-white/70 uppercase tracking-widest max-w-2xl">
+            Browse the legends who have shaped our athletic history
+          </Editable>
+        </div>
+      </div>
+
+      <div className="py-24 px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
+            <div className="flex flex-wrap gap-4">
             {categories.map(cat => (
               <button 
                 key={cat} 
@@ -85,5 +101,6 @@ export function Inductees() {
         </div>
       </div>
     </div>
+  </div>
   );
 }
