@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Work Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-headline: "Work Sans", ui-sans-serif, system-ui, sans-serif;
+  
+  --color-primary: #D59402;
+  --color-on-primary: #FFFFFF;
+  --color-on-surface: #1B1C1C;
+  --color-surface: #FCF9F8;
+  --color-surface-container-low: #F6F3F2;
+  --color-surface-container-highest: #E5E2E1;
+  --color-outline-variant: rgba(131, 117, 98, 0.15);
+}
+
+@layer base {
+  body {
+    @apply bg-surface text-on-surface font-sans antialiased;
+  }
+}
+
+.hero-gradient {
+  background: linear-gradient(to right, rgba(27, 28, 28, 0.95) 30%, rgba(27, 28, 28, 0.4) 100%);
+}
+
+.text-shadow-sm {
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.glass-nav {
+  @apply bg-surface/80 backdrop-blur-xl border-b border-outline-variant;
+}
