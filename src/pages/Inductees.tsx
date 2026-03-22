@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { Editable, EditableImage } from '@/src/components/Editable';
-import { inductees } from '../data/inductees';
+import { useContent } from '@/src/contexts/ContentContext';
 
 export function Inductees() {
+  const { inductees } = useContent();
   const [searchParams, setSearchParams] = useSearchParams();
   const sportQuery = searchParams.get('sport');
   const yearQuery = searchParams.get('year');

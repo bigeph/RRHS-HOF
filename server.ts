@@ -27,6 +27,21 @@ async function startServer() {
     }
   });
 
+  // API: Save inductees to the permanent data file
+  app.post('/api/save-inductees', (req, res) => {
+    try {
+      const inductees = req.body;
+      const filePath = path.join(process.cwd(), 'src', 'data', 'inductees.json');
+      
+      fs.writeFileSync(filePath, JSON.stringify(inductees, null, 2), 'utf8');
+      console.log('Inductees saved to src/data/inductees.json');
+      res.json({ success: true, message: 'Inductees saved to permanent storage.' });
+    } catch (error) {
+      console.error('Failed to save inductees:', error);
+      res.status(500).json({ success: false, error: 'Failed to save inductees to disk.' });
+    }
+  });
+
   // API: Trigger a build
   app.post('/api/build', (req, res) => {
     console.log('Starting build process...');

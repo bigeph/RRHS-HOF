@@ -8,7 +8,7 @@ import { useContent } from '@/src/contexts/ContentContext';
 
 export function InducteeProfile() {
   const { id } = useParams<{ id: string }>();
-  const { isEditing } = useContent();
+  const { inductees } = useContent();
   const inductee = inductees.find(i => i.id === id);
 
   if (!inductee) {
@@ -26,11 +26,11 @@ export function InducteeProfile() {
     <div className="bg-surface min-h-screen">
       {/* Hero Section */}
       <div className="relative h-[60vh] overflow-hidden">
-        <EditableImage
-          id={`inductee_hero_${inductee.id}`}
+        <img
           src={inductee.image || `https://picsum.photos/seed/${inductee.id}/1920/1080`}
           alt={inductee.name}
           className="w-full h-full object-cover grayscale brightness-50"
+          referrerPolicy="no-referrer"
         />
         <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-16 bg-gradient-to-t from-surface to-transparent">
           <div className="max-w-7xl mx-auto w-full">
@@ -39,7 +39,7 @@ export function InducteeProfile() {
               <span className="text-xs font-bold uppercase tracking-widest">Back to Gallery</span>
             </Link>
             <h1 className="text-6xl md:text-8xl font-black font-headline tracking-tighter mb-4">
-              <Editable id={`inductee_name_${inductee.id}`}>{inductee.name}</Editable>
+              {inductee.name}
             </h1>
             {inductee.graduationYear && (
               <p className="text-2xl font-bold text-secondary mb-6">
@@ -70,27 +70,23 @@ export function InducteeProfile() {
 
       {/* Content Section */}
       <div className="max-w-7xl mx-auto px-8 py-24">
-        <EditableImageSlider 
-          id={`inductee_gallery_${inductee.id}`} 
-          defaultImages={inductee.gallery && inductee.gallery.length > 0 
-            ? inductee.gallery 
-            : [
-                `https://picsum.photos/seed/${inductee.id}-1/1200/800`,
-                `https://picsum.photos/seed/${inductee.id}-2/1200/800`,
-                `https://picsum.photos/seed/${inductee.id}-3/1200/800`
-              ]
-          } 
-        />
+        {inductee.gallery && inductee.gallery.length > 0 && (
+          <div className="mb-24">
+            <EditableImageSlider 
+              id={`inductee_gallery_${inductee.id}`} 
+              defaultImages={inductee.gallery} 
+            />
+          </div>
+        )}
+        
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
           <div className="lg:col-span-2">
             <h2 className="text-3xl font-black font-headline mb-8 border-b border-outline-variant pb-4 flex items-center gap-3">
               <Award size={24} className="text-primary" />
               Legacy & Biography
             </h2>
-            <div className="prose prose-invert max-w-none text-on-surface/70 leading-relaxed">
-              <Editable id={`inductee_bio_${inductee.id}`}>
-                {inductee.bio || `A legendary figure in the history of Roanoke Rapids High School athletics, ${inductee.name} was inducted into the Hall of Fame in ${inductee.year} for their outstanding contributions to ${inductee.sports.join(' and ')}. Their dedication, skill, and sportsmanship continue to inspire generations of Yellowjackets.`}
-              </Editable>
+            <div className="prose prose-invert max-w-none text-on-surface/70 leading-relaxed whitespace-pre-wrap">
+              {inductee.bio || `A legendary figure in the history of Roanoke Rapids High School athletics, ${inductee.name} was inducted into the Hall of Fame in ${inductee.year} for their outstanding contributions to ${inductee.sports.join(' and ')}. Their dedication, skill, and sportsmanship continue to inspire generations of Yellowjackets.`}
             </div>
           </div>
           
@@ -111,6 +107,22 @@ export function InducteeProfile() {
               </div>
             )}
 
+            {inductee.allConferenceHonorableMention && inductee.allConferenceHonorableMention.length > 0 && (
+              <div className="bg-surface-container p-8 border border-outline-variant">
+                <h3 className="text-xl font-black font-headline mb-6 uppercase tracking-tight flex items-center gap-2">
+                  <Star size={20} className="text-primary/50" />
+                  All-Conference Honorable Mention
+                </h3>
+                <ul className="space-y-4">
+                  {inductee.allConferenceHonorableMention.map((item, idx) => (
+                    <li key={idx} className="text-sm font-bold border-l-2 border-primary/10 pl-4 py-1">
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
             {inductee.allState && inductee.allState.length > 0 && (
               <div className="bg-surface-container p-8 border border-outline-variant">
                 <h3 className="text-xl font-black font-headline mb-6 uppercase tracking-tight flex items-center gap-2">
@@ -120,6 +132,22 @@ export function InducteeProfile() {
                 <ul className="space-y-4">
                   {inductee.allState.map((item, idx) => (
                     <li key={idx} className="text-sm font-bold border-l-2 border-secondary/30 pl-4 py-1">
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {inductee.allStateHonorableMention && inductee.allStateHonorableMention.length > 0 && (
+              <div className="bg-surface-container p-8 border border-outline-variant">
+                <h3 className="text-xl font-black font-headline mb-6 uppercase tracking-tight flex items-center gap-2">
+                  <Trophy size={20} className="text-secondary/50" />
+                  All-State Honorable Mention
+                </h3>
+                <ul className="space-y-4">
+                  {inductee.allStateHonorableMention.map((item, idx) => (
+                    <li key={idx} className="text-sm font-bold border-l-2 border-secondary/10 pl-4 py-1">
                       {item}
                     </li>
                   ))}
